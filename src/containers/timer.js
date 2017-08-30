@@ -11,14 +11,15 @@ class Timer extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      remaining: 1500,
       running: true
     }
   }
 
-  timeout = window.setInterval(() => this.setState({
-    remaining: this.state.running ? this.state.remaining - 1 : this.state.remaining
-  }), 1000)
+  timeout = window.setInterval(() => {
+    if (this.state.running) {
+      this.props.onCountdown()
+    }
+   }, 1000)
 
   componentWillUnmount () {
     clearTimeout(this.timeout)
@@ -29,14 +30,18 @@ class Timer extends React.Component {
       <Wrapper>
         <ClockWrapper>
           <Clock />
-          <HeadingOne>{this.state.remaining}</HeadingOne>
+          <HeadingOne>{Math.floor(this.props.remaining / 60)}:{
+            this.props.remaining % 60 < 10
+              ? `0${this.props.remaining%60}`
+              : this.props.remaining % 60
+            }</HeadingOne>
           <span style={{display: 'flex'}}>
             <Button onClick={() => this.setState({ running: !this.state.running })}>{ this.state.running ? 'Stop' : 'Resume' }</Button>
-            <Button onClick={() => this.setState({ remaining: 1500 })}>Reset</Button>
+            <Button onClick={this.props.onReset}>Reset</Button>
           </span>
         </ClockWrapper>
         <CyclesWrapper>
-          <Cycles />
+          <Cycles>{this.props.cycles}</Cycles>
         </CyclesWrapper>        
       </Wrapper>
     )

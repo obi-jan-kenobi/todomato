@@ -32,9 +32,43 @@ class App extends Component {
       'handleAdd',
       'handleSelect',
       'handleComplete',
+      'handleCountdown',
     ]
 
     methods.forEach(m => this[m] = this[m].bind(this))
+  }
+
+  handleCountdown (idx) {    
+    this.setState({
+      todos: [
+        ...this.state.todos.slice(0, idx),
+        this.state.todos[idx].remaining <= 0
+          ? {
+              ...this.state.todos[idx],
+              remaining: 1500,
+              cycles: this.state.todos[idx].cycles + 1
+          }
+          : {
+            ...this.state.todos[idx],
+            remaining: this.state.todos[idx].remaining - 1,
+          },
+        ...this.state.todos.slice(idx + 1)
+      ]      
+    })
+  }
+
+  handleReset (idx) {
+    this.setState({
+      todos: [
+        ...this.state.todos.slice(0, idx),
+        {
+          ...this.state.todos[idx],
+          remaining: 1500,
+        },
+        ...this.state.todos.slice(idx + 1)
+      ]
+      
+    })
   }
 
   handleAdd (todo) {
@@ -43,6 +77,7 @@ class App extends Component {
         ...this.state.todos, {
           name: todo,
           completed: false,
+          cycles: 0,
           remaining: 1500
         }
       ],
@@ -54,8 +89,7 @@ class App extends Component {
       todos: [
         ...this.state.todos.slice(0, idx),
         {
-          name: this.state.todos[idx].name,
-          remaining: this.state.todos[idx].remaining,
+          ...this.state.todos[idx],          
           completed: true,
         },
         ...this.state.todos.slice(idx + 1)
@@ -73,7 +107,13 @@ class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <Container>
-          <Timer />
+          {!!this.state.selected && 
+            <Timer
+              onCountdown={() => this.handleCountdown(this.state.selected)}
+              remaining={this.state.todos[this.state.selected].remaining}
+              cycles={this.state.todos[this.state.selected].cycles}
+              />
+          }
           <AddTodo onAdd={this.handleAdd} />
           <TodoList
             onClick={this.handleSelect}

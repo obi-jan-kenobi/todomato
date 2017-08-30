@@ -25,6 +25,7 @@ export default class extends React.Component {
   }
 
   handleClick () {
+    this.setState({todo: ''})
     this.props.onAdd(this.state.todo)
   }
 
