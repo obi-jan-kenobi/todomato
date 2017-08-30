@@ -1,20 +1,40 @@
 import React from 'react'
-import Button from '../components/button'
-import Input from '../components/input'
+import AddTodo from '../components/add-todo'
 
-class AddTodo extends React.Component {
-  constructor () {
-    super()
+export default class extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      todo: ''
+    }
+
+    const methods = [
+      'handleChange',
+      'handleClick',
+    ]
+
+    methods.forEach(m => {
+      this[m] = this[m].bind(this)
+    })    
   }
+
+  handleChange (e) {
+    this.setState({
+      todo: e.target.value
+    })
+  }
+
+  handleClick () {
+    this.props.onAdd(this.state.todo)
+  }
+
   render() {
     return (
-      <div style={{display: 'flex', flexDirection: 'column'}}>
-        <Input placeholder="new todo"></Input>
-        <Input placeholder="timeframe"></Input>
-        <Button>Add Todo</Button>
-      </div>
+      <AddTodo
+        todo={this.state.todo}
+        onChange={this.handleChange}
+        onClick={this.handleClick}
+      />
     )
   }
 }
-
-export default AddTodo

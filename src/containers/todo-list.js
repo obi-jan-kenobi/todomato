@@ -4,20 +4,28 @@ import List from '../components/todo-list'
 import Item from '../components/todo-list-item'
 
 export default (props) =>
-  <Wrapper>
+  <Wrapper>    
     <List>
-      {props.complete.map(todo =>
+      {props.todos
+        .filter(todo => !todo.completed)
+        .map(todo =>
         <Item
-          onClick={props.onClick}
-          key={todo.key}>{todo.name}
+          onClick={() => props.onClick(todo.key)}
+          active={todo.active}
+          key={todo.key}>
+          {todo.name}
         </Item>
         )}
     </List>
     <List>
-      {props.incomplete.map(todo =>
+      {props.todos
+        .filter(todo => todo.completed)
+        .map(todo =>
         <Item
+          complete
           onClick={props.onClick}
-          key={todo.key}>{todo.name}
+          key={todo.key}>
+          {todo.name}
         </Item>
         )}
     </List>
