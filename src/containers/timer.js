@@ -1,10 +1,15 @@
 import React from 'react'
 import Button from '../components/button'
 import HeadingOne from '../components/heading-one'
+import Wrapper from '../components/timer-wrapper'
+import ClockWrapper from '../components/timer-clock-wrapper'
+import CyclesWrapper from '../components/timer-cycles-wrapper'
+import Clock from '../components/timer-clock'
+import Cycles from '../components/timer-cycles'
 
 class Timer extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
       remaining: 1500,
       running: true
@@ -21,11 +26,17 @@ class Timer extends React.Component {
 
   render () {
     return (
-      <div>
-        <HeadingOne>{this.state.remaining}</HeadingOne>
-        <Button onClick={() => this.setState({ running: !this.state.running })}>{ this.state.running ? 'Stop' : 'Resume' }</Button>
-        <Button onClick={() => this.setState({ remaining: 1500 })}>Reset</Button>
-      </div>
+      <Wrapper>
+        <ClockWrapper>
+          <Clock />
+          <HeadingOne>{this.state.remaining}</HeadingOne>
+          <Button onClick={() => this.setState({ running: !this.state.running })}>{ this.state.running ? 'Stop' : 'Resume' }</Button>
+          <Button onClick={() => this.setState({ remaining: 1500 })}>Reset</Button>
+        </ClockWrapper>
+        <CyclesWrapper>
+          <Cycles />
+        </CyclesWrapper>        
+      </Wrapper>
     )
   }
 }
