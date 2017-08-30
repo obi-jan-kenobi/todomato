@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Container from './components/container'
 import AddTodo from './containers/add-todo'
 import Timer from './containers/timer'
 import logo from './logo.svg';
@@ -8,8 +9,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Timer></Timer>
-        <AddTodo></AddTodo>
+        <Container>
+          <Timer></Timer>
+          <AddTodo></AddTodo>
+        </Container>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../components/button'
 import HeadingOne from '../components/heading-one'
 
 class Timer extends React.Component {
@@ -10,13 +11,20 @@ class Timer extends React.Component {
     }
   }
 
+  timeout = window.setInterval(() => this.setState({
+    remaining: this.state.running ? this.state.remaining - 1 : this.state.remaining
+  }), 1000)
+
+  componentWillUnmount () {
+    clearTimeout(this.timeout)
+  }
+
   render () {
-    setTimeout(() => this.setState({
-      remaining: this.state.remaining - 1
-    }), 1000)
     return (
       <div>
         <HeadingOne>{this.state.remaining}</HeadingOne>
+        <Button onClick={() => this.setState({ running: !this.state.running })}>{ this.state.running ? 'Stop' : 'Resume' }</Button>
+        <Button onClick={() => this.setState({ remaining: 1500 })}>Reset</Button>
       </div>
     )
   }
