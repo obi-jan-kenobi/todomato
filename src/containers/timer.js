@@ -30,8 +30,10 @@ class Timer extends React.Component {
         <ClockWrapper>
           <Clock />
           <HeadingOne>{this.state.remaining}</HeadingOne>
-          <Button onClick={() => this.setState({ running: !this.state.running })}>{ this.state.running ? 'Stop' : 'Resume' }</Button>
-          <Button onClick={() => this.setState({ remaining: 1500 })}>Reset</Button>
+          <span style={{display: 'flex'}}>
+            <Button onClick={() => this.setState({ running: !this.state.running })}>{ this.state.running ? 'Stop' : 'Resume' }</Button>
+            <Button onClick={() => this.setState({ remaining: 1500 })}>Reset</Button>
+          </span>
         </ClockWrapper>
         <CyclesWrapper>
           <Cycles />

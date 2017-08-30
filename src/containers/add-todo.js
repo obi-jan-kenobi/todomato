@@ -8,7 +8,7 @@ class AddTodo extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div style={{display: 'flex', flexDirection: 'column'}}>
         <Input placeholder="new todo"></Input>
         <Input placeholder="timeframe"></Input>
         <Button>Add Todo</Button>

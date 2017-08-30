@@ -8,7 +8,7 @@ const Button = styled.button`
   margin: 0;
   border: none;
   display: inline-block;
-  width: 100%;
+  flex-grow: 1;
 `
 
 export default Button
