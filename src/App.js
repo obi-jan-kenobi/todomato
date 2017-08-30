@@ -16,6 +16,7 @@ const theme = {
 // eslint-disable-next-line
 injectGlobal`
   body {
+    font-size: 19px;
     background-color: ${theme.background};
   }
 `
@@ -109,6 +110,7 @@ class App extends Component {
         <Container>
           {!!this.state.selected && 
             <Timer
+              onComplete={() => this.handleComplete(this.state.selected)}
               onCountdown={() => this.handleCountdown(this.state.selected)}
               remaining={this.state.todos[this.state.selected].remaining}
               cycles={this.state.todos[this.state.selected].cycles}

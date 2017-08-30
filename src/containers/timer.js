@@ -11,7 +11,7 @@ class Timer extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      running: true
+      running: false,
     }
   }
 
@@ -29,19 +29,27 @@ class Timer extends React.Component {
     return (
       <Wrapper>
         <ClockWrapper>
-          <Clock />
+          <div>
           <HeadingOne>{Math.floor(this.props.remaining / 60)}:{
             this.props.remaining % 60 < 10
               ? `0${this.props.remaining%60}`
               : this.props.remaining % 60
             }</HeadingOne>
+          </div>
           <span style={{display: 'flex'}}>
-            <Button onClick={() => this.setState({ running: !this.state.running })}>{ this.state.running ? 'Stop' : 'Resume' }</Button>
+            <Button onClick={() => this.setState({ running: !this.state.running })}>
+              { this.state.running
+                ? 'Stop'
+                : this.props.remaining === 1500
+                  ? 'Start'
+                  : 'Resume' }
+            </Button>
             <Button onClick={this.props.onReset}>Reset</Button>
           </span>
         </ClockWrapper>
         <CyclesWrapper>
-          <Cycles>{this.props.cycles}</Cycles>
+          <HeadingOne>{this.props.cycles} Pomodoros</HeadingOne>
+          <Button onClick={this.props.onComplete}>mark as completed</Button>
         </CyclesWrapper>        
       </Wrapper>
     )
