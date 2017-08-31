@@ -4,8 +4,6 @@ import HeadingOne from '../components/heading-one'
 import Wrapper from '../components/timer-wrapper'
 import ClockWrapper from '../components/timer-clock-wrapper'
 import CyclesWrapper from '../components/timer-cycles-wrapper'
-import Clock from '../components/timer-clock'
-import Cycles from '../components/timer-cycles'
 
 class Timer extends React.Component {
   constructor (props) {

@@ -1,13 +1,21 @@
 import React from 'react'
-import Wrapper from '../components/todo-list-wrapper'
-import Heading from '../components/todo-list-heading'
-import List from '../components/todo-list'
-import Item from '../components/todo-list-item'
+import Wrapper from './todo-list-wrapper'
+import Heading from './todo-list-heading'
+import List from './todo-list'
+import Item from './todo-list-item'
+
+const ListWrapper = (props) =>
+  <div
+    style={{
+      flexGrow: 1,
+      flexBasis: '50%'
+    }} 
+    {...props}
+    />
 
 export default (props) =>
   <Wrapper>
-    <div style={{flexGrow: 1,
-  flexBasis: '50%'}}>
+    <ListWrapper>
     <Heading>Todos</Heading>
     <List>
       {props.todos
@@ -21,9 +29,8 @@ export default (props) =>
         </Item>
         )}
     </List>
-    </div>
-    <div style={{flexGrow: 1,
-  flexBasis: '50%'}}>
+    </ListWrapper>
+    <ListWrapper>
     <Heading>Completed</Heading>
     <List>
       {props.todos
@@ -37,5 +44,5 @@ export default (props) =>
         </Item>
         )}
     </List>
-    </div>
+    </ListWrapper>
   </Wrapper>

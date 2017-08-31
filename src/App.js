@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { ThemeProvider, injectGlobal } from 'styled-components'
 import Container from './components/container'
 import AddTodo from './containers/add-todo'
-import TodoList from './containers/todo-list'
+import Todos from './components/todos'
 import Timer from './containers/timer'
 
 const theme = {
@@ -108,7 +108,7 @@ class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <Container>
-          {!!this.state.selected && 
+          {!!this.state.todos[this.state.selected] &&
             <Timer
               onComplete={() => this.handleComplete(this.state.selected)}
               onCountdown={() => this.handleCountdown(this.state.selected)}
@@ -117,9 +117,14 @@ class App extends Component {
               />
           }
           <AddTodo onAdd={this.handleAdd} />
-          <TodoList
+          <Todos
             onClick={this.handleSelect}
-            todos={this.state.todos.map((t,i) => ({key: i, name: t.name, completed: t.completed, active: this.state.selected === i}))}
+            todos={this.state.todos.map((t,i) => ({
+              key: i,
+              name: t.name,
+              completed: t.completed,
+              active: this.state.selected === i
+              }))}
             />
         </Container>
       </ThemeProvider>
