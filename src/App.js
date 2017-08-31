@@ -110,6 +110,7 @@ class App extends Component {
         <Container>
           {!!this.state.todos[this.state.selected]
             ? <Timer
+                onReset={() => this.handleReset(this.state.selected)}
                 onComplete={() => this.handleComplete(this.state.selected)}
                 onCountdown={() => this.handleCountdown(this.state.selected)}
                 remaining={this.state.todos[this.state.selected].remaining}

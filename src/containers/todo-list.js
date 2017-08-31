@@ -22,8 +22,9 @@ export default (props) =>
         )}
     </List>
     </div>
-    <div style={{flexGrow: 1,
-  flexBasis: '50%'}}>
+    <div style={{
+      flexGrow: 1,
+      flexBasis: '50%'}}>
     <Heading>Completed</Heading>
     <List>
       {props.todos
