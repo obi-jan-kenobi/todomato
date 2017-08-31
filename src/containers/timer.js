@@ -35,20 +35,26 @@ class Timer extends React.Component {
             }</HeadingOne>
           </div>
           <span style={{display: 'flex'}}>
-            <Button onClick={() => this.setState({ running: !this.state.running })}>
+            <Button
+              disabled={this.props.disabled}
+              onClick={() => this.setState({ running: !this.state.running })}>
               { this.state.running
                 ? 'Stop'
                 : this.props.remaining === 1500
                   ? 'Start'
                   : 'Resume' }
             </Button>
-            <Button onClick={this.props.onReset}>Reset</Button>
+            <Button
+              disabled={this.props.disabled}
+              onClick={this.props.onReset}>Reset</Button>
           </span>
         </ClockWrapper>
         <CyclesWrapper>
           <HeadingOne>{this.props.cycles} Pomodoros</HeadingOne>
-          <Button onClick={this.props.onComplete}>mark as completed</Button>
-        </CyclesWrapper>        
+          <Button
+            disabled={this.props.disabled}
+            onClick={this.props.onComplete}>mark as completed</Button>
+        </CyclesWrapper>
       </Wrapper>
     )
   }

@@ -108,13 +108,18 @@ class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <Container>
-          {!!this.state.todos[this.state.selected] &&
-            <Timer
-              onComplete={() => this.handleComplete(this.state.selected)}
-              onCountdown={() => this.handleCountdown(this.state.selected)}
-              remaining={this.state.todos[this.state.selected].remaining}
-              cycles={this.state.todos[this.state.selected].cycles}
-              />
+          {!!this.state.todos[this.state.selected]
+            ? <Timer
+                onComplete={() => this.handleComplete(this.state.selected)}
+                onCountdown={() => this.handleCountdown(this.state.selected)}
+                remaining={this.state.todos[this.state.selected].remaining}
+                cycles={this.state.todos[this.state.selected].cycles}
+                />
+            : <Timer
+                disabled
+                remaining={0}
+                cycles={0}
+                />
           }
           <AddTodo onAdd={this.handleAdd} />
           <Todos
