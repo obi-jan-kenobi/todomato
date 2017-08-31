@@ -32,6 +32,7 @@ export default class extends React.Component {
   render() {
     return (
       <AddTodo
+        disabled={!(this.state.todo.length > 0)}
         todo={this.state.todo}
         onChange={this.handleChange}
         onClick={this.handleClick}
