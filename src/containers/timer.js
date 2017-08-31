@@ -6,7 +6,7 @@ import ClockWrapper from '../components/timer-clock-wrapper'
 import CyclesWrapper from '../components/timer-cycles-wrapper'
 
 class Timer extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       running: false,
@@ -17,43 +17,53 @@ class Timer extends React.Component {
     if (this.state.running) {
       this.props.onCountdown()
     }
-   }, 1000)
+  }, 1000)
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     clearTimeout(this.timeout)
   }
 
-  render () {
+  render() {
     return (
       <Wrapper>
         <ClockWrapper>
           <div>
-          <HeadingOne>{Math.floor(this.props.remaining / 60)}:{
-            this.props.remaining % 60 < 10
-              ? `0${this.props.remaining%60}`
-              : this.props.remaining % 60
-            }</HeadingOne>
+            <HeadingOne>
+              {Math.floor(this.props.remaining / 60)}:{this.props.remaining %
+                60 <
+              10 ? (
+                `0${this.props.remaining % 60}`
+              ) : (
+                this.props.remaining % 60
+              )}
+            </HeadingOne>
           </div>
-          <span style={{display: 'flex'}}>
+          <span style={{ display: 'flex' }}>
             <Button
               disabled={this.props.disabled}
-              onClick={() => this.setState({ running: !this.state.running })}>
-              { this.state.running
-                ? 'Stop'
-                : this.props.remaining === 1500
-                  ? 'Start'
-                  : 'Resume' }
+              onClick={() => this.setState({ running: !this.state.running })}
+            >
+              {this.state.running ? (
+                'Stop'
+              ) : this.props.remaining === 1500 ? (
+                'Start'
+              ) : (
+                'Resume'
+              )}
             </Button>
-            <Button
-              disabled={this.props.disabled}
-              onClick={this.props.onReset}>Reset</Button>
+            <Button disabled={this.props.disabled} onClick={this.props.onReset}>
+              Reset
+            </Button>
           </span>
         </ClockWrapper>
         <CyclesWrapper>
           <HeadingOne>{this.props.cycles} Pomodoros</HeadingOne>
           <Button
             disabled={this.props.disabled}
-            onClick={this.props.onComplete}>mark as completed</Button>
+            onClick={this.props.onComplete}
+          >
+            mark as completed
+          </Button>
         </CyclesWrapper>
       </Wrapper>
     )

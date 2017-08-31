@@ -2,30 +2,27 @@ import React from 'react'
 import AddTodo from '../components/add-todo'
 
 export default class extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
-      todo: ''
+      todo: '',
     }
 
-    const methods = [
-      'handleChange',
-      'handleClick',
-    ]
+    const methods = ['handleChange', 'handleClick']
 
     methods.forEach(m => {
       this[m] = this[m].bind(this)
-    })    
-  }
-
-  handleChange (e) {
-    this.setState({
-      todo: e.target.value
     })
   }
 
-  handleClick () {
-    this.setState({todo: ''})
+  handleChange(e) {
+    this.setState({
+      todo: e.target.value,
+    })
+  }
+
+  handleClick() {
+    this.setState({ todo: '' })
     this.props.onAdd(this.state.todo)
   }
 

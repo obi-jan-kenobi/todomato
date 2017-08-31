@@ -22,7 +22,7 @@ injectGlobal`
 `
 
 class App extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       todos: [],
@@ -36,10 +36,10 @@ class App extends Component {
       'handleCountdown',
     ]
 
-    methods.forEach(m => this[m] = this[m].bind(this))
+    methods.forEach(m => (this[m] = this[m].bind(this)))
   }
 
-  handleCountdown (idx) {    
+  handleCountdown(idx) {
     this.setState({
       todos: [
         ...this.state.todos.slice(0, idx),
@@ -47,18 +47,18 @@ class App extends Component {
           ? {
               ...this.state.todos[idx],
               remaining: 1500,
-              cycles: this.state.todos[idx].cycles + 1
-          }
+              cycles: this.state.todos[idx].cycles + 1,
+            }
           : {
-            ...this.state.todos[idx],
-            remaining: this.state.todos[idx].remaining - 1,
-          },
-        ...this.state.todos.slice(idx + 1)
-      ]      
+              ...this.state.todos[idx],
+              remaining: this.state.todos[idx].remaining - 1,
+            },
+        ...this.state.todos.slice(idx + 1),
+      ],
     })
   }
 
-  handleReset (idx) {
+  handleReset(idx) {
     this.setState({
       todos: [
         ...this.state.todos.slice(0, idx),
@@ -66,41 +66,41 @@ class App extends Component {
           ...this.state.todos[idx],
           remaining: 1500,
         },
-        ...this.state.todos.slice(idx + 1)
-      ]
-      
-    })
-  }
-
-  handleAdd (todo) {
-    this.setState({
-      todos: [
-        ...this.state.todos, {
-          name: todo,
-          completed: false,
-          cycles: 0,
-          remaining: 1500
-        }
+        ...this.state.todos.slice(idx + 1),
       ],
     })
   }
 
-  handleComplete (idx) {
+  handleAdd(todo) {
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        {
+          name: todo,
+          completed: false,
+          cycles: 0,
+          remaining: 1500,
+        },
+      ],
+    })
+  }
+
+  handleComplete(idx) {
     this.setState({
       todos: [
         ...this.state.todos.slice(0, idx),
         {
-          ...this.state.todos[idx],          
+          ...this.state.todos[idx],
           completed: true,
         },
-        ...this.state.todos.slice(idx + 1)
+        ...this.state.todos.slice(idx + 1),
       ],
     })
   }
 
-  handleSelect (idx) {
+  handleSelect(idx) {
     this.setState({
-      selected: idx
+      selected: idx,
     })
   }
 
@@ -108,30 +108,27 @@ class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <Container>
-          {!!this.state.todos[this.state.selected]
-            ? <Timer
-                onReset={() => this.handleReset(this.state.selected)}
-                onComplete={() => this.handleComplete(this.state.selected)}
-                onCountdown={() => this.handleCountdown(this.state.selected)}
-                remaining={this.state.todos[this.state.selected].remaining}
-                cycles={this.state.todos[this.state.selected].cycles}
-                />
-            : <Timer
-                disabled
-                remaining={0}
-                cycles={0}
-                />
-          }
+          {!!this.state.todos[this.state.selected] ? (
+            <Timer
+              onReset={() => this.handleReset(this.state.selected)}
+              onComplete={() => this.handleComplete(this.state.selected)}
+              onCountdown={() => this.handleCountdown(this.state.selected)}
+              remaining={this.state.todos[this.state.selected].remaining}
+              cycles={this.state.todos[this.state.selected].cycles}
+            />
+          ) : (
+            <Timer disabled remaining={0} cycles={0} />
+          )}
           <AddTodo onAdd={this.handleAdd} />
           <Todos
             onClick={this.handleSelect}
-            todos={this.state.todos.map((t,i) => ({
+            todos={this.state.todos.map((t, i) => ({
               key: i,
               name: t.name,
               completed: t.completed,
-              active: this.state.selected === i
-              }))}
-            />
+              active: this.state.selected === i,
+            }))}
+          />
         </Container>
       </ThemeProvider>
     )
