@@ -2,4 +2,9 @@
 
 This is the lovechild of a Todo-App and a Pomodoro-Timer
 
+Todos:
+  - responsiveness :nail_care:
+  - persistance :godmode:
+  - tests :see_no_evil:
+
 ![App-Screenshot](http://i.imgur.com/VpCWarv.png)
