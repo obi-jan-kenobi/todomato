@@ -4,6 +4,9 @@ import HeadingOne from '../components/heading-one'
 import Wrapper from '../components/timer-wrapper'
 import ClockWrapper from '../components/timer-clock-wrapper'
 import CyclesWrapper from '../components/timer-cycles-wrapper'
+import Clock from '../components/timer-clock'
+import Cycles from '../components/timer-cycles'
+import Progress from '../components/progress'
 
 class Timer extends React.Component {
   constructor(props) {
@@ -28,6 +31,7 @@ class Timer extends React.Component {
       <Wrapper>
         <ClockWrapper>
           <div>
+            <Progress progress={(1500 - this.props.remaining) / 15 / 100} />
             <HeadingOne>
               {Math.floor(this.props.remaining / 60)}:{this.props.remaining %
                 60 <
