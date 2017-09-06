@@ -3,6 +3,7 @@
 This is the lovechild of a Todo-App and a Pomodoro-Timer
 
 Todos:
+  - notifications 
   - break-timers  :sleeping:
   - responsiveness :nail_care:
   - persistance :godmode:

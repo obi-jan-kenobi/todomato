@@ -48,15 +48,9 @@ class App extends Component {
         this.state.todos[idx].remaining <= 0
           ? {
               ...this.state.todos[idx],
-<<<<<<< HEAD
-              remaining: 1500,
-              cycles: this.state.todos[idx].cycles + 1,
-            }
-=======
               remaining: MAX_TIME,
               cycles: this.state.todos[idx].cycles + 1
           }
->>>>>>> cleanup progress-bar
           : {
               ...this.state.todos[idx],
               remaining: this.state.todos[idx].remaining - 1,
@@ -87,13 +81,8 @@ class App extends Component {
           name: todo,
           completed: false,
           cycles: 0,
-<<<<<<< HEAD
-          remaining: 1500,
-        },
-=======
           remaining: MAX_TIME
         }
->>>>>>> cleanup progress-bar
       ],
     })
   }
