@@ -73,6 +73,14 @@ class App extends Component {
     })
   }
 
+  componentDidMount () {
+    if (Notification.permission === 'default')
+      Notification.requestPermission()
+        .then(permission => permission === 'granted'
+        ? new Notification('hello')
+        : console.log('not granted'))
+  }
+
   handleAdd(todo) {
     this.setState({
       todos: [
