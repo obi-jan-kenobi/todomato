@@ -27,18 +27,23 @@ class Timer extends React.Component {
     clearTimeout(this.timeout)
   }
 
-  render () {
-    const progressPercentage = (MAX_TIME - this.props.remaining) / (MAX_TIME / 100)
+  render() {
+    const progressPercentage =
+      (MAX_TIME - this.props.remaining) / (MAX_TIME / 100)
     return (
       <Wrapper>
         <ClockWrapper>
           <div>
             <Progress progress={progressPercentage} />
-            <HeadingOne>{Math.floor(this.props.remaining / 60)}:{
-              this.props.remaining % 60 < 10
-                ? `0${this.props.remaining%60}`
-                : this.props.remaining % 60
-              }</HeadingOne>
+            <HeadingOne>
+              {Math.floor(this.props.remaining / 60)}:{this.props.remaining %
+                60 <
+              10 ? (
+                `0${this.props.remaining % 60}`
+              ) : (
+                this.props.remaining % 60
+              )}
+            </HeadingOne>
           </div>
           <span style={{ display: 'flex' }}>
             <Button

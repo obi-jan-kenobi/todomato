@@ -4,6 +4,7 @@ import Container from './components/container'
 import AddTodo from './containers/add-todo'
 import Todos from './components/todos'
 import Timer from './containers/timer'
+import { completeTodo, addTodo } from './util'
 
 export const MAX_TIME = 1500
 
@@ -49,8 +50,8 @@ class App extends Component {
           ? {
               ...this.state.todos[idx],
               remaining: MAX_TIME,
-              cycles: this.state.todos[idx].cycles + 1
-          }
+              cycles: this.state.todos[idx].cycles + 1,
+            }
           : {
               ...this.state.todos[idx],
               remaining: this.state.todos[idx].remaining - 1,
@@ -73,38 +74,25 @@ class App extends Component {
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (Notification.permission === 'default')
-      Notification.requestPermission()
-        .then(permission => permission === 'granted'
-        ? new Notification('hello')
-        : console.log('not granted'))
+      Notification.requestPermission().then(
+        permission =>
+          permission === 'granted'
+            ? new Notification('hello')
+            : console.log('not granted')
+      )
   }
 
-  handleAdd(todo) {
+  handleAdd(name) {
     this.setState({
-      todos: [
-        ...this.state.todos,
-        {
-          name: todo,
-          completed: false,
-          cycles: 0,
-          remaining: MAX_TIME
-        }
-      ],
+      todos: addTodo(this.state.todos)(name, MAX_TIME),
     })
   }
 
   handleComplete(idx) {
     this.setState({
-      todos: [
-        ...this.state.todos.slice(0, idx),
-        {
-          ...this.state.todos[idx],
-          completed: true,
-        },
-        ...this.state.todos.slice(idx + 1),
-      ],
+      todos: completeTodo(this.state.todos, idx),
     })
   }
 
