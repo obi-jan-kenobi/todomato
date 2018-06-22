@@ -1,24 +1,41 @@
 type description =
   | Description(string);
 
+type duration =
+  | Second(int);
+
 type status =
   | Finished
   | Running
   | Unfinished;
 
+type todoId =
+  | TodoId(string);
+
 type todo = {
+  todoId,
   description,
   status,
   cycles: int,
+  duration,
 };
+
+type tickTodo = (todo, unit) => todo;
+
+let incSecond = sec =>
+  switch (sec) {
+  | Second(x) => Second(x + 1)
+  };
+
+let tickTodo = todo => {...todo, duration: incSecond(todo.duration)};
 
 type state = {todos: list(todo)};
 
 type actions =
   | AddTodo(todo)
-  | RemoveTodo(todo)
-  | StartTodo(todo)
-  | StopTodo(todo);
+  | RemoveTodo(todoId)
+  | StartTodo(todoId)
+  | StopTodo(todoId);
 
 let default = ReasonReact.reducerComponent("Todos");
 
@@ -28,13 +45,35 @@ let make = _children => {
   reducer: (action, state) =>
     switch (action) {
     | AddTodo(todo) => ReasonReact.Update({todos: [todo, ...state.todos]})
-    | RemoveTodo(_) =>
+    | RemoveTodo(todoId) =>
+      ReasonReact.Update({
+        todos: List.filter(t => t.todoId != todoId, state.todos),
+      })
+    | StartTodo(todoId) =>
       ReasonReact.Update({
         todos:
-          switch (state.todos) {
-          | [] => []
-          | [_, ...rest] => rest
-          },
+          List.map(
+            t =>
+              if (t.todoId == todoId) {
+                {...t, status: Running};
+              } else {
+                t;
+              },
+            state.todos,
+          ),
+      })
+    | StopTodo(todoId) =>
+      ReasonReact.Update({
+        todos:
+          List.map(
+            t =>
+              if (t.todoId == todoId) {
+                {...t, status: Unfinished};
+              } else {
+                t;
+              },
+            state.todos,
+          ),
       })
     },
   render: _ => <div />,
