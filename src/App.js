@@ -50,7 +50,9 @@ class App extends Component {
               ...this.state.todos[idx],
               remaining: MAX_TIME,
               cycles: this.state.todos[idx].cycles + 1
-          }
+          } || new Notification('Pomodoro done', {
+            body: `You finished ${this.state.todos[idx].name}. Now take a break`
+          })
           : {
               ...this.state.todos[idx],
               remaining: this.state.todos[idx].remaining - 1,
@@ -79,6 +81,10 @@ class App extends Component {
         .then(permission => permission === 'granted'
         ? new Notification('hello')
         : console.log('not granted'))
+
+        new Notification('Pomodoro done', {
+          body: `You finished. Now take a break`
+        })
   }
 
   handleAdd(todo) {

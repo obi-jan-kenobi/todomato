@@ -3,19 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "bs-platform": "^3.1.5",
+    "cypress": "^3.0.1",
     "prettier": "^1.6.1",
-    "react-scripts": "1.0.7"
+    "react-scripts": "^1.1.4"
   },
   "dependencies": {
     "firebase": "^4.0.0",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "reason-react": "^0.4.2",
     "styled-components": "^2.0.0"
   },
   "scripts": {
+    "reason:watch": "bsb -make-world -w",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
+    "format":
+      "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
