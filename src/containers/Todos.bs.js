@@ -3,7 +3,6 @@
 
 var List = require("bs-platform/lib/js/list.js");
 var Block = require("bs-platform/lib/js/block.js");
-var React = require("react");
 var Caml_obj = require("bs-platform/lib/js/caml_obj.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
 
@@ -34,9 +33,7 @@ function make() {
           /* willUnmount */$$default[/* willUnmount */6],
           /* willUpdate */$$default[/* willUpdate */7],
           /* shouldUpdate */$$default[/* shouldUpdate */8],
-          /* render */(function () {
-              return React.createElement("div", undefined);
-            }),
+          /* render */$$default[/* render */9],
           /* initialState */(function () {
               return /* record */[/* todos : [] */0];
             }),
@@ -79,6 +76,15 @@ function make() {
                                                   /* cycles */t[/* cycles */3],
                                                   /* duration */t[/* duration */4]
                                                 ];
+                                        } else {
+                                          return t;
+                                        }
+                                      }), state[/* todos */0])]]);
+                case 4 : 
+                    var todoId$3 = action[0];
+                    return /* Update */Block.__(0, [/* record */[/* todos */List.map((function (t) {
+                                        if (Caml_obj.caml_equal(t[/* todoId */0], todoId$3)) {
+                                          return tickTodo(t);
                                         } else {
                                           return t;
                                         }

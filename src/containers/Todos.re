@@ -20,7 +20,7 @@ type todo = {
   duration,
 };
 
-type tickTodo = (todo, unit) => todo;
+type tickTodo = todo => todo;
 
 let incSecond = sec =>
   switch (sec) {
@@ -35,7 +35,8 @@ type actions =
   | AddTodo(todo)
   | RemoveTodo(todoId)
   | StartTodo(todoId)
-  | StopTodo(todoId);
+  | StopTodo(todoId)
+  | TickTodo(todoId);
 
 let default = ReasonReact.reducerComponent("Todos");
 
@@ -75,6 +76,18 @@ let make = _children => {
             state.todos,
           ),
       })
+    | TickTodo(todoId) =>
+      ReasonReact.Update({
+        todos:
+          List.map(
+            t =>
+              if (t.todoId == todoId) {
+                tickTodo(t);
+              } else {
+                t;
+              },
+            state.todos,
+          ),
+      })
     },
-  render: _ => <div />,
 };
