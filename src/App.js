@@ -1,19 +1,20 @@
-import React, { Component } from 'react'
-import { ThemeProvider, injectGlobal } from 'styled-components'
-import Container from './components/container'
-import AddTodo from './containers/add-todo'
-import Todos from './components/todos'
-import Timer from './containers/timer'
+import React, { Component } from "react";
+import { ThemeProvider, injectGlobal } from "styled-components";
+import Container from "./components/container";
+import AddTodo from "./containers/add-todo";
+import Todos from "./components/todos";
+import Timer from "./containers/timer";
+import { completeTodo, addTodo } from "./util";
 
-export const MAX_TIME = 1500
+export const MAX_TIME = 1500;
 
 const theme = {
-  background: '#2B3538',
-  primary: '#50B5AE',
-  secondary: '#F7F5B0',
-  highlight: '#A5E6E1',
-  muted: '#37494F',
-}
+  background: "#2B3538",
+  primary: "#50B5AE",
+  secondary: "#F7F5B0",
+  highlight: "#A5E6E1",
+  muted: "#37494F"
+};
 
 // eslint-disable-next-line
 injectGlobal`
@@ -21,24 +22,24 @@ injectGlobal`
     font-size: 19px;
     background-color: ${theme.background};
   }
-`
+`;
 
 class App extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       todos: [],
-      selected: null,
-    }
+      selected: null
+    };
 
     const methods = [
-      'handleAdd',
-      'handleSelect',
-      'handleComplete',
-      'handleCountdown',
-    ]
+      "handleAdd",
+      "handleSelect",
+      "handleComplete",
+      "handleCountdown"
+    ];
 
-    methods.forEach(m => (this[m] = this[m].bind(this)))
+    methods.forEach(m => (this[m] = this[m].bind(this)));
   }
 
   handleCountdown(idx) {
@@ -50,16 +51,18 @@ class App extends Component {
               ...this.state.todos[idx],
               remaining: MAX_TIME,
               cycles: this.state.todos[idx].cycles + 1
-          } || new Notification('Pomodoro done', {
-            body: `You finished ${this.state.todos[idx].name}. Now take a break`
-          })
+            } ||
+            new Notification("Pomodoro done", {
+              body: `You finished ${this.state.todos[idx]
+                .name}. Now take a break`
+            })
           : {
               ...this.state.todos[idx],
-              remaining: this.state.todos[idx].remaining - 1,
+              remaining: this.state.todos[idx].remaining - 1
             },
-        ...this.state.todos.slice(idx + 1),
-      ],
-    })
+        ...this.state.todos.slice(idx + 1)
+      ]
+    });
   }
 
   handleReset(idx) {
@@ -68,56 +71,43 @@ class App extends Component {
         ...this.state.todos.slice(0, idx),
         {
           ...this.state.todos[idx],
-          remaining: MAX_TIME,
-        },
-        ...this.state.todos.slice(idx + 1),
-      ],
-    })
-  }
-
-  componentDidMount () {
-    if (Notification.permission === 'default')
-      Notification.requestPermission()
-        .then(permission => permission === 'granted'
-        ? new Notification('hello')
-        : console.log('not granted'))
-
-        new Notification('Pomodoro done', {
-          body: `You finished. Now take a break`
-        })
-  }
-
-  handleAdd(todo) {
-    this.setState({
-      todos: [
-        ...this.state.todos,
-        {
-          name: todo,
-          completed: false,
-          cycles: 0,
           remaining: MAX_TIME
-        }
-      ],
-    })
+        },
+        ...this.state.todos.slice(idx + 1)
+      ]
+    });
+  }
+
+  componentDidMount() {
+    if (Notification.permission === "default")
+      Notification.requestPermission().then(
+        permission =>
+          permission === "granted"
+            ? new Notification("hello")
+            : console.log("not granted")
+      );
+
+    new Notification("Pomodoro done", {
+      body: `You finished. Now take a break`
+    });
+  }
+
+  handleAdd(name) {
+    this.setState({
+      todos: addTodo(this.state.todos)(name, MAX_TIME)
+    });
   }
 
   handleComplete(idx) {
     this.setState({
-      todos: [
-        ...this.state.todos.slice(0, idx),
-        {
-          ...this.state.todos[idx],
-          completed: true,
-        },
-        ...this.state.todos.slice(idx + 1),
-      ],
-    })
+      todos: completeTodo(this.state.todos, idx)
+    });
   }
 
   handleSelect(idx) {
     this.setState({
-      selected: idx,
-    })
+      selected: idx
+    });
   }
 
   render() {
@@ -142,13 +132,13 @@ class App extends Component {
               key: i,
               name: t.name,
               completed: t.completed,
-              active: this.state.selected === i,
+              active: this.state.selected === i
             }))}
           />
         </Container>
       </ThemeProvider>
-    )
+    );
   }
 }
 
-export default App
+export default App;
