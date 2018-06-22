@@ -38,10 +38,10 @@ type actions =
   | StopTodo(todoId)
   | TickTodo(todoId);
 
-let default = ReasonReact.reducerComponent("Todos");
+let component = ReasonReact.reducerComponent("Todos");
 
 let make = _children => {
-  ...default,
+  ...component,
   initialState: () => {todos: []},
   reducer: (action, state) =>
     switch (action) {
@@ -90,4 +90,7 @@ let make = _children => {
           ),
       })
     },
+  render: _ => <div> (ReasonReact.string("Hello from ReasonML")) </div>,
 };
+
+let default = ReasonReact.wrapReasonForJs(~component, _ => make([||]));

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ThemeProvider, injectGlobal } from "styled-components";
 import Container from "./components/container";
+import ReasonTodos from "./containers/Todos.bs";
 import AddTodo from "./containers/add-todo";
 import Todos from "./components/todos";
 import Timer from "./containers/timer";
@@ -114,6 +115,7 @@ class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <Container>
+          <ReasonTodos />
           {!!this.state.todos[this.state.selected] ? (
             <Timer
               onReset={() => this.handleReset(this.state.selected)}

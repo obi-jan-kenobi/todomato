@@ -3,6 +3,7 @@
 
 var List = require("bs-platform/lib/js/list.js");
 var Block = require("bs-platform/lib/js/block.js");
+var React = require("react");
 var Caml_obj = require("bs-platform/lib/js/caml_obj.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
 
@@ -20,24 +21,26 @@ function tickTodo(todo) {
         ];
 }
 
-var $$default = ReasonReact.reducerComponent("Todos");
+var component = ReasonReact.reducerComponent("Todos");
 
 function make() {
   return /* record */[
-          /* debugName */$$default[/* debugName */0],
-          /* reactClassInternal */$$default[/* reactClassInternal */1],
-          /* handedOffState */$$default[/* handedOffState */2],
-          /* willReceiveProps */$$default[/* willReceiveProps */3],
-          /* didMount */$$default[/* didMount */4],
-          /* didUpdate */$$default[/* didUpdate */5],
-          /* willUnmount */$$default[/* willUnmount */6],
-          /* willUpdate */$$default[/* willUpdate */7],
-          /* shouldUpdate */$$default[/* shouldUpdate */8],
-          /* render */$$default[/* render */9],
+          /* debugName */component[/* debugName */0],
+          /* reactClassInternal */component[/* reactClassInternal */1],
+          /* handedOffState */component[/* handedOffState */2],
+          /* willReceiveProps */component[/* willReceiveProps */3],
+          /* didMount */component[/* didMount */4],
+          /* didUpdate */component[/* didUpdate */5],
+          /* willUnmount */component[/* willUnmount */6],
+          /* willUpdate */component[/* willUpdate */7],
+          /* shouldUpdate */component[/* shouldUpdate */8],
+          /* render */(function () {
+              return React.createElement("div", undefined, "Hello from ReasonML");
+            }),
           /* initialState */(function () {
               return /* record */[/* todos : [] */0];
             }),
-          /* retainedProps */$$default[/* retainedProps */11],
+          /* retainedProps */component[/* retainedProps */11],
           /* reducer */(function (action, state) {
               switch (action.tag | 0) {
                 case 0 : 
@@ -92,15 +95,20 @@ function make() {
                 
               }
             }),
-          /* subscriptions */$$default[/* subscriptions */13],
-          /* jsElementWrapped */$$default[/* jsElementWrapped */14]
+          /* subscriptions */component[/* subscriptions */13],
+          /* jsElementWrapped */component[/* jsElementWrapped */14]
         ];
 }
 
+var $$default = ReasonReact.wrapReasonForJs(component, (function () {
+        return make(/* array */[]);
+      }));
+
 exports.incSecond = incSecond;
 exports.tickTodo = tickTodo;
+exports.component = component;
+exports.make = make;
 exports.$$default = $$default;
 exports.default = $$default;
 exports.__esModule = true;
-exports.make = make;
-/* default Not a pure module */
+/* component Not a pure module */
