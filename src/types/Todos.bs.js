@@ -27,13 +27,18 @@ function removeTodoById(todos, todoId) {
 function startTodoById(todos, todoId) {
   return List.map((function (t) {
                 if (Caml_obj.caml_equal(t[/* todoId */0], todoId)) {
-                  return /* record */[
-                          /* todoId */t[/* todoId */0],
-                          /* description */t[/* description */1],
-                          /* status : Running */2,
-                          /* cycles */t[/* cycles */3],
-                          /* duration */t[/* duration */4]
-                        ];
+                  var match = t[/* status */2];
+                  if (match !== 1) {
+                    return t;
+                  } else {
+                    return /* record */[
+                            /* todoId */t[/* todoId */0],
+                            /* description */t[/* description */1],
+                            /* status : Running */2,
+                            /* cycles */t[/* cycles */3],
+                            /* duration */t[/* duration */4]
+                          ];
+                  }
                 } else {
                   return t;
                 }
@@ -43,13 +48,18 @@ function startTodoById(todos, todoId) {
 function stopTodoById(todos, todoId) {
   return List.map((function (t) {
                 if (Caml_obj.caml_equal(t[/* todoId */0], todoId)) {
-                  return /* record */[
-                          /* todoId */t[/* todoId */0],
-                          /* description */t[/* description */1],
-                          /* status : Stopped */1,
-                          /* cycles */t[/* cycles */3],
-                          /* duration */t[/* duration */4]
-                        ];
+                  var match = t[/* status */2];
+                  if (match >= 2) {
+                    return /* record */[
+                            /* todoId */t[/* todoId */0],
+                            /* description */t[/* description */1],
+                            /* status : Stopped */1,
+                            /* cycles */t[/* cycles */3],
+                            /* duration */t[/* duration */4]
+                          ];
+                  } else {
+                    return t;
+                  }
                 } else {
                   return t;
                 }
@@ -59,7 +69,12 @@ function stopTodoById(todos, todoId) {
 function tickTodoById(todos, todoId) {
   return List.map((function (t) {
                 if (Caml_obj.caml_equal(t[/* todoId */0], todoId)) {
-                  return tickTodo(t);
+                  var match = t[/* status */2];
+                  if (match >= 2) {
+                    return tickTodo(t);
+                  } else {
+                    return t;
+                  }
                 } else {
                   return t;
                 }

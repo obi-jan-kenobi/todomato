@@ -36,7 +36,11 @@ let startTodoById = (todos, todoId) =>
   List.map(
     t =>
       if (t.todoId == todoId) {
-        {...t, status: Running};
+        switch (t.status) {
+        | Finished => t
+        | Stopped => {...t, status: Running}
+        | Running => t
+        };
       } else {
         t;
       },
@@ -47,7 +51,11 @@ let stopTodoById = (todos, todoId) =>
   List.map(
     t =>
       if (t.todoId == todoId) {
-        {...t, status: Stopped};
+        switch (t.status) {
+        | Finished => t
+        | Stopped => t
+        | Running => {...t, status: Stopped}
+        };
       } else {
         t;
       },
@@ -58,7 +66,11 @@ let tickTodoById = (todos, todoId) =>
   List.map(
     t =>
       if (t.todoId == todoId) {
-        tickTodo(t);
+        switch (t.status) {
+        | Finished => t
+        | Stopped => t
+        | Running => tickTodo(t)
+        };
       } else {
         t;
       },
