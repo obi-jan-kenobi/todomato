@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { ThemeProvider, injectGlobal } from "styled-components";
 import Container from "./components/container";
-import ReasonTodos from "./containers/Todos.bs";
+import ReasonTodos from "./containers/TodosReducer.bs";
 import AddTodo from "./containers/add-todo";
 import Todos from "./components/todos";
 import Timer from "./containers/timer";
