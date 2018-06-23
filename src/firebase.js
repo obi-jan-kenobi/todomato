@@ -1,7 +1,6 @@
-import * as firebaseConfig from './config/firebase.json'
+import * as firebaseConfig from "./config/firebase.json";
+import firebase from "firebase";
 
-import * as firebase from 'firebase'
+firebase.initializeApp(firebaseConfig);
 
-firebase.initializeApp(firebaseConfig)
-
-export default firebase
+export default firebase;

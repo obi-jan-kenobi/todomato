@@ -1,35 +1,33 @@
-import React from 'react'
-import Button from '../components/button'
-import HeadingOne from '../components/heading-one'
-import Wrapper from '../components/timer-wrapper'
-import ClockWrapper from '../components/timer-clock-wrapper'
-import CyclesWrapper from '../components/timer-cycles-wrapper'
-import Clock from '../components/timer-clock'
-import Cycles from '../components/timer-cycles'
-import Progress from '../components/progress'
-import { MAX_TIME } from '../App.js'
+import React from "react";
+import Button from "../components/button";
+import HeadingOne from "../components/heading-one";
+import Wrapper from "../components/timer-wrapper";
+import ClockWrapper from "../components/timer-clock-wrapper";
+import CyclesWrapper from "../components/timer-cycles-wrapper";
+import Progress from "../components/progress";
+import { MAX_TIME } from "../App.js";
 
 class Timer extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      running: false,
-    }
+      running: false
+    };
   }
 
   timeout = window.setInterval(() => {
     if (this.state.running) {
-      this.props.onCountdown()
+      this.props.onCountdown();
     }
-  }, 1000)
+  }, 1000);
 
   componentWillUnmount() {
-    clearTimeout(this.timeout)
+    clearTimeout(this.timeout);
   }
 
   render() {
     const progressPercentage =
-      (MAX_TIME - this.props.remaining) / (MAX_TIME / 100)
+      (MAX_TIME - this.props.remaining) / (MAX_TIME / 100);
     return (
       <Wrapper>
         <ClockWrapper>
@@ -45,17 +43,17 @@ class Timer extends React.Component {
               )}
             </HeadingOne>
           </div>
-          <span style={{ display: 'flex' }}>
+          <span style={{ display: "flex" }}>
             <Button
               disabled={this.props.disabled}
               onClick={() => this.setState({ running: !this.state.running })}
             >
               {this.state.running ? (
-                'Stop'
+                "Stop"
               ) : this.props.remaining === 1500 ? (
-                'Start'
+                "Start"
               ) : (
-                'Resume'
+                "Resume"
               )}
             </Button>
             <Button disabled={this.props.disabled} onClick={this.props.onReset}>
@@ -73,8 +71,8 @@ class Timer extends React.Component {
           </Button>
         </CyclesWrapper>
       </Wrapper>
-    )
+    );
   }
 }
 
-export default Timer
+export default Timer;

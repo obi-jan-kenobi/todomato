@@ -12,6 +12,7 @@
     "firebase": "^5.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-spring": "^5.3.18",
     "reason-react": "^0.4.2",
     "styled-components": "^3.3.3"
   },
